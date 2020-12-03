@@ -1,0 +1,7 @@
+{
+  "name": "CloudMessaging",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
