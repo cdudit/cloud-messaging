@@ -15,13 +15,13 @@
     <form (ngSubmit)="submit()" [formGroup]="form">
       <ion-item>
         <ion-label position="floating">Identifiant</ion-label>
-        <ion-input formControlName="id" type="text"></ion-input>
+        <ion-input formControlName="id" type="mail" autocomplete="email"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="floating">Mot de passe</ion-label>
         <ion-input formControlName="mdp" type="password"></ion-input>
       </ion-item>
-      <ion-button type="submit" shape="round" [disabled]="!form.valid">
+      <ion-button type="submit" shape="round" [disabled]="!form.valid" class="ion-text-uppercase">
         Connexion
         <ion-icon name="send-outline" slot="end"></ion-icon>
       </ion-button>
