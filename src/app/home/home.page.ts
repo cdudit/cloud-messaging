@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterOutlet } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { FirebaseService } from '../firebase.service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-home',
@@ -16,10 +17,16 @@ export class HomePage implements OnInit {
     public fb: FormBuilder,
     public router: Router,
     public firebase: FirebaseService,
-    public alertController: AlertController
+    public alertController: AlertController,
+    public storage: Storage
   ) { }
 
   ngOnInit(): void {
+    this.storage.get('user_id').then(userId => {
+      if (userId) {
+        this.router.navigate(['contacts']);
+      }
+    });
     this.form = this.fb.group({
       id: ['', Validators.compose([Validators.email, Validators.required])],
       mdp: ['', Validators.compose([Validators.minLength(6), Validators.required])]
@@ -33,6 +40,7 @@ export class HomePage implements OnInit {
       } else if (val === 'auth/user-not-found') {
         this.presentAlert('Aucun compte trouvé pour l\'adresse mail.');
       } else {
+        this.storage.set('user_id', val);
         this.router.navigate(['contacts']);
       }
     });

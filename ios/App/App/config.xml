@@ -7,5 +7,9 @@
     <param name="onload" value="false"/>
   </feature>
 
+  <feature name="NativeStorage">
+    <param name="ios-package" value="NativeStorage"/>
+  </feature>
+
   
 </widget>

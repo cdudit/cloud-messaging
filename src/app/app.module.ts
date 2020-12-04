@@ -16,6 +16,9 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { ContactCardComponent } from './contact-card/contact-card.component';
 
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { IonicStorageModule } from '@ionic/storage';
+
 export const firebaseConfig = {
   apiKey: 'AIzaSyAtRRf3wXg9-PeB7tRHlBRoRffdI7H2qQs',
   authDomain: 'cloud-messaging-29ea2.firebaseapp.com',
@@ -34,6 +37,7 @@ export const firebaseConfig = {
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
+    IonicStorageModule.forRoot(),
     AppRoutingModule,
     FormsModule,
     AngularFireModule.initializeApp(firebaseConfig),
@@ -44,6 +48,7 @@ export const firebaseConfig = {
   providers: [
     StatusBar,
     SplashScreen,
+    NativeStorage,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent],

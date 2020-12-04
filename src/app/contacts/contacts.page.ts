@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { FirebaseService } from '../firebase.service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-contacts',
@@ -13,17 +14,19 @@ export class ContactsPage implements OnInit {
 
   constructor(
     public firebase: FirebaseService,
-    public router: Router
+    public router: Router,
+    public storage: Storage
   ) { }
 
   ngOnInit() {
     this.users = this.firebase.getUsers();
-    console.log(this.users);
   }
 
   logOut() {
     this.firebase.logOut();
-    this.router.navigate(['home']);
+    this.storage.clear().then(() => {
+      this.router.navigate(['home']);
+    });
   }
 
 }
