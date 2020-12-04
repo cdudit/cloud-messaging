@@ -48,9 +48,11 @@ export class FirebaseService {
     this.fireAuth.createUserWithEmailAndPassword(user.email, user.mdp);
   }
 
-  sendMessage(msg) {
-    console.log(msg);
+  getDiscuss(expediteur, recepteur) {
+    return this.firestore.collection('Messages').valueChanges({ idField: 'messageId' });
+  }
 
+  sendMessage(msg) {
     this.firestore.collection('Messages').add({
       expediteur_id: msg.expediteur_id,
       recepteur_id: msg.recepteur_id,
