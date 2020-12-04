@@ -1,9 +1,7 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="secondary">
-      <ion-button (click)="dismiss()">
-        Annuler
-      </ion-button>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home" text=""></ion-back-button>
     </ion-buttons>
     <ion-title>Nouveau compte</ion-title>
   </ion-toolbar>
@@ -22,6 +20,11 @@
       <ion-item>
         <ion-label position="floating">Nom d'utilisateur</ion-label>
         <ion-input formControlName="nom_utilisateur" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Date de naissance</ion-label>
+        <ion-datetime formControlName="naissance" display-timezone="utc" autocomplete="bday">
+        </ion-datetime>
       </ion-item>
       <ion-item>
         <ion-label position="floating">Adresse</ion-label>

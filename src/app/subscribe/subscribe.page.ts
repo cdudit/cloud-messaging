@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { FirebaseService } from '../firebase.service';
 
 @Component({
   selector: 'app-subscribe',
@@ -14,7 +14,7 @@ export class SubscribePage implements OnInit {
   constructor(
     public fb: FormBuilder,
     public router: Router,
-    public modalController: ModalController
+    public firebaseService: FirebaseService
   ) { }
 
   ngOnInit() {
@@ -32,7 +32,8 @@ export class SubscribePage implements OnInit {
     });
   }
 
-  dismiss() {
-    this.modalController.dismiss();
+  submit() {
+    this.firebaseService.add(this.form.value);
+    this.router.navigate(['home']);
   }
 }

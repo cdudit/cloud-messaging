@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterOutlet } from '@angular/router';
-import { ModalController } from '@ionic/angular';
-import { SubscribePage } from '../subscribe/subscribe.page';
 
 @Component({
   selector: 'app-home',
@@ -14,8 +12,7 @@ export class HomePage implements OnInit {
 
   constructor(
     public fb: FormBuilder,
-    public router: Router,
-    public modalController: ModalController
+    public router: Router
   ) { }
 
   ngOnInit(): void {
@@ -27,13 +24,5 @@ export class HomePage implements OnInit {
 
   submit() {
     console.log(this.form.value);
-  }
-
-  async goSubscribe() {
-    const modal = await this.modalController.create({
-      component: SubscribePage,
-      swipeToClose: true
-    });
-    return await modal.present();
   }
 }
