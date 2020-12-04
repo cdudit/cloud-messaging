@@ -4,6 +4,17 @@ import { Observable } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { ToastController } from '@ionic/angular';
 
+export interface User {
+  nom: string;
+  prenom: string;
+  nom_utilisateur: string;
+  email: string;
+  adresse: string;
+  ville: string;
+  cp: string;
+  naissance: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -45,5 +56,9 @@ export class FirebaseService {
       .catch((error) => {
         return error.code;
       });
+  }
+
+  logOut() {
+    this.fireAuth.signOut();
   }
 }

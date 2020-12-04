@@ -22,6 +22,10 @@ const routes: Routes = [
   },
   {
     path: 'contact-card', component: ContactCardComponent
+  },
+  {
+    path: 'discussion',
+    loadChildren: () => import('./discussion/discussion.module').then( m => m.DiscussionPageModule)
   }
 ];
 

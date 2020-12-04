@@ -9,5 +9,10 @@
       <ion-title size="large">Contacts</ion-title>
     </ion-toolbar>
   </ion-header>
-  <app-contact-card *ngFor="let user of users | async"></app-contact-card>
+  <app-contact-card *ngFor="let user of users | async" [user]=user></app-contact-card>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="logOut()" color="danger">
+      <ion-icon name="log-out-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
