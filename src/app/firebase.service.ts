@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { ToastController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class FirebaseService {
   constructor(
     public firestore: AngularFirestore,
     public fireAuth: AngularFireAuth,
+    public toastController: ToastController
   ) {
     this.users = firestore.collection('users').valueChanges();
   }
@@ -33,5 +35,15 @@ export class FirebaseService {
       cp: user.cp
     });
     this.fireAuth.createUserWithEmailAndPassword(user.email, user.mdp);
+  }
+
+  async checkAuth(user) {
+    return await this.fireAuth.signInWithEmailAndPassword(user.id, user.mdp)
+      .then((userCredential) => {
+        return userCredential.user;
+      })
+      .catch((error) => {
+        return error.code;
+      });
   }
 }

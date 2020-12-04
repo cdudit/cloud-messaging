@@ -15,6 +15,10 @@ const routes: Routes = [
     path: 'subscribe',
     loadChildren: () => import('./subscribe/subscribe.module').then( m => m.SubscribePageModule)
   },
+  {
+    path: 'contacts',
+    loadChildren: () => import('./contacts/contacts.module').then( m => m.ContactsPageModule)
+  },
 ];
 
 @NgModule({
