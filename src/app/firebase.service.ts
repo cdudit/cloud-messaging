@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { AngularFireAuth } from '@angular/fire/auth';
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +12,8 @@ export class FirebaseService {
   users: Observable<any[]>;
 
   constructor(
-    public firestore: AngularFirestore
+    public firestore: AngularFirestore,
+    public fireAuth: AngularFireAuth,
   ) {
     this.users = firestore.collection('users').valueChanges();
   }
@@ -30,5 +33,6 @@ export class FirebaseService {
       ville: user.ville,
       cp: user.cp
     });
+    this.fireAuth.createUserWithEmailAndPassword(user.email, user.mdp);
   }
 }

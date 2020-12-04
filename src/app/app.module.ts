@@ -14,6 +14,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { FirebaseAuthentication } from '@ionic-native/firebase-authentication/ngx';
 export const firebaseConfig = {
   apiKey: 'AIzaSyAtRRf3wXg9-PeB7tRHlBRoRffdI7H2qQs',
   authDomain: 'cloud-messaging-29ea2.firebaseapp.com',
