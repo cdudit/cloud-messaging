@@ -22,18 +22,22 @@ export class SubscribePage implements OnInit {
       nom: ['', Validators.required],
       prenom: ['', Validators.required],
       nom_utilisateur: ['', Validators.required],
-      email: ['', Validators.required],
-      mdp: ['', Validators.required],
+      email: ['', Validators.compose([Validators.email, Validators.required])],
+      mdp: ['', Validators.compose([Validators.minLength(6), Validators.required])],
       confirm_mdp: ['', Validators.required],
       naissance: ['', Validators.required],
       adresse: ['', Validators.required],
       ville: ['', Validators.required],
-      cp: ['', Validators.required]
+      cp: ['', Validators.compose([Validators.pattern('[0-9]{5}'), Validators.required])]
     });
   }
 
   submit() {
     this.firebaseService.add(this.form.value);
     this.router.navigate(['home']);
+  }
+
+  test($event) {
+    console.log($event);
   }
 }

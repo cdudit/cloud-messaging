@@ -44,7 +44,7 @@
       </ion-item>
       <ion-item>
         <ion-label position="floating">Mot de passe</ion-label>
-        <ion-input formControlName="mdp" type="password" autocomplete="new-password"></ion-input>
+        <ion-input formControlName="mdp" type="password" autocomplete="new-password" (keyup)="test($event)"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="floating">Confirmation du mot de passe</ion-label>
@@ -52,7 +52,6 @@
       </ion-item>
       <ion-button type="submit" shape="round" [disabled]="!form.valid" class="ion-text-uppercase">
         Créer
-        <ion-icon name="add-circle-outline" slot="end"></ion-icon>
       </ion-button>
     </form>
   </div>
