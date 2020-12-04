@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -13,8 +13,10 @@ import { DiscussionPage } from './discussion.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    DiscussionPageRoutingModule
+    DiscussionPageRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [DiscussionPage]
 })
-export class DiscussionPageModule {}
+export class DiscussionPageModule { }

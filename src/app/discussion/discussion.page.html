@@ -8,5 +8,14 @@
 </ion-header>
 
 <ion-content>
-
+  <div>
+    Aucun message
+  </div>
+  <ion-card>
+    <form [formGroup]="form">
+      <ion-input placeholder="Message" type="text" formControlName="message" class="padding">
+      </ion-input>
+      <ion-icon (click)="submit()" color="primary" name="arrow-up-circle-outline"></ion-icon>
+    </form>
+  </ion-card>
 </ion-content>

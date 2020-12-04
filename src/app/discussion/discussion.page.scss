@@ -1,0 +1,21 @@
+ion-card {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+form {
+    display: flex;
+    align-items: center;
+}
+
+.padding {
+    padding-left: 10px!important;
+    padding-right: 10px!important;
+}
+
+ion-icon {
+    font-size: 30px;
+    padding-right: 5px;
+}

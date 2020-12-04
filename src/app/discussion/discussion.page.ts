@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -8,12 +9,25 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DiscussionPage implements OnInit {
   utilisateur: string;
+  form: FormGroup;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(
+    public fb: FormBuilder,
+    private route: ActivatedRoute
+  ) {
     this.utilisateur = this.route.snapshot.paramMap.get('nom_utilisateur');
+    this.form = this.fb.group({
+      message: ['', Validators.required]
+    });
   }
 
   ngOnInit() {
+  }
+
+  submit() {
+    if (this.form.value.message === '') {
+
+    }
   }
 
 }
