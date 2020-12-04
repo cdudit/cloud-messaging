@@ -35,7 +35,6 @@ export class HomePage implements OnInit {
       } else {
         this.router.navigate(['contacts']);
       }
-      console.log(val);
     });
   }
 

@@ -1,9 +1,13 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>contacts</ion-title>
+    <ion-title>Contacts</ion-title>
   </ion-toolbar>
 </ion-header>
-
-<ion-content>
-
+<ion-content fullscreen="true">
+  <ion-header collapse="condense" class="ion-no-border">
+    <ion-toolbar>
+      <ion-title size="large">Contacts</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <app-contact-card *ngFor="let user of users | async"></app-contact-card>
 </ion-content>

@@ -14,7 +14,8 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
-import { FirebaseAuthentication } from '@ionic-native/firebase-authentication/ngx';
+import { ContactCardComponent } from './contact-card/contact-card.component';
+
 export const firebaseConfig = {
   apiKey: 'AIzaSyAtRRf3wXg9-PeB7tRHlBRoRffdI7H2qQs',
   authDomain: 'cloud-messaging-29ea2.firebaseapp.com',
@@ -26,7 +27,9 @@ export const firebaseConfig = {
 };
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+  ],
   entryComponents: [],
   imports: [
     BrowserModule,
@@ -43,6 +46,6 @@ export const firebaseConfig = {
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

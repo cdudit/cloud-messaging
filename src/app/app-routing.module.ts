@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { ContactCardComponent } from './contact-card/contact-card.component';
 
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   },
   {
     path: '',
@@ -13,12 +14,15 @@ const routes: Routes = [
   },
   {
     path: 'subscribe',
-    loadChildren: () => import('./subscribe/subscribe.module').then( m => m.SubscribePageModule)
+    loadChildren: () => import('./subscribe/subscribe.module').then(m => m.SubscribePageModule)
   },
   {
     path: 'contacts',
-    loadChildren: () => import('./contacts/contacts.module').then( m => m.ContactsPageModule)
+    loadChildren: () => import('./contacts/contacts.module').then(m => m.ContactsPageModule)
   },
+  {
+    path: 'contact-card', component: ContactCardComponent
+  }
 ];
 
 @NgModule({
