@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { DiscussionPageRoutingModule } from './discussion-routing.module';
 
 import { DiscussionPage } from './discussion.page';
+import { MessageComponent } from '../message/message.component';
 
 @NgModule({
   imports: [
@@ -17,6 +18,6 @@ import { DiscussionPage } from './discussion.page';
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [DiscussionPage]
+  declarations: [DiscussionPage, MessageComponent]
 })
 export class DiscussionPageModule { }

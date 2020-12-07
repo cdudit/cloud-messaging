@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { ContactCardComponent } from './contact-card/contact-card.component';
+import { MessageComponent } from './message/message.component';
 
 const routes: Routes = [
   {
@@ -24,8 +25,11 @@ const routes: Routes = [
     path: 'contact-card', component: ContactCardComponent
   },
   {
+    path: 'message', component: MessageComponent
+  },
+  {
     path: 'discussion',
-    loadChildren: () => import('./discussion/discussion.module').then( m => m.DiscussionPageModule)
+    loadChildren: () => import('./discussion/discussion.module').then(m => m.DiscussionPageModule)
   }
 ];
 

@@ -35,17 +35,18 @@ export class FirebaseService {
   }
 
   add(user) {
-    this.firestore.collection('users').add({
-      nom: user.nom,
-      prenom: user.prenom,
-      email: user.email,
-      nom_utilisateur: user.nom_utilisateur,
-      naissance: user.naissance,
-      adresse: user.adresse,
-      ville: user.ville,
-      cp: user.cp
+    this.fireAuth.createUserWithEmailAndPassword(user.email, user.mdp).then((addedUser) => {
+      this.firestore.collection('users').doc(addedUser.user.uid).set({
+        nom: user.nom,
+        prenom: user.prenom,
+        email: user.email,
+        nom_utilisateur: user.nom_utilisateur,
+        naissance: user.naissance,
+        adresse: user.adresse,
+        ville: user.ville,
+        cp: user.cp
+      });
     });
-    this.fireAuth.createUserWithEmailAndPassword(user.email, user.mdp);
   }
 
   getDiscuss(expediteur, recepteur) {

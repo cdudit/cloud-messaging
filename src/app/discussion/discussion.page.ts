@@ -46,5 +46,6 @@ export class DiscussionPage implements OnInit {
         message: this.form.value.message
       });
     }
+    this.ngOnInit();
   }
 }

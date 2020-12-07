@@ -1,3 +1,10 @@
-<p>
-  message works!
-</p>
+<ion-card *ngIf="isExpediteur" class="left">
+  <ion-card-content>
+    {{message.message}}
+  </ion-card-content>
+</ion-card>
+<ion-card *ngIf="isRecepteur" class="right">
+  <ion-card-content>
+    {{message.message}}
+  </ion-card-content>
+</ion-card>
