@@ -29,4 +29,8 @@ export class ContactsPage implements OnInit {
     });
   }
 
+  settings() {
+
+  }
+
 }

@@ -13,32 +13,38 @@
     <app-contact-card *ngFor="let user of users | async" [user]=user></app-contact-card>
   </div>
   <ng-template #loading>
-    <div class="ion-padding custom-skeleton">
-      <ion-card>
-        <ion-card-header>
-          <ion-card-title>
-            <ion-skeleton-text animated style="width: 80%; height: 25px;"></ion-skeleton-text>
-          </ion-card-title>
-          <ion-card-subtitle>
-            <ion-skeleton-text animated style="width: 60%; margin-top: 10px;"></ion-skeleton-text>
-          </ion-card-subtitle>
-        </ion-card-header>
-      </ion-card>
-      <ion-card>
-        <ion-card-header>
-          <ion-card-title>
-            <ion-skeleton-text animated style="width: 80%; height: 25px;"></ion-skeleton-text>
-          </ion-card-title>
-          <ion-card-subtitle>
-            <ion-skeleton-text animated style="width: 60%; margin-top: 10px;"></ion-skeleton-text>
-          </ion-card-subtitle>
-        </ion-card-header>
-      </ion-card>
-    </div>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>
+          <ion-skeleton-text animated style="width: 80%; height: 25px;"></ion-skeleton-text>
+        </ion-card-title>
+        <ion-card-subtitle>
+          <ion-skeleton-text animated style="width: 60%; margin-top: 10px;"></ion-skeleton-text>
+        </ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>
+          <ion-skeleton-text animated style="width: 80%; height: 25px;"></ion-skeleton-text>
+        </ion-card-title>
+        <ion-card-subtitle>
+          <ion-skeleton-text animated style="width: 60%; margin-top: 10px;"></ion-skeleton-text>
+        </ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
   </ng-template>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="logOut()" color="danger">
-      <ion-icon name="log-out-outline"></ion-icon>
+    <ion-fab-button>
+      <ion-icon name="settings"></ion-icon>
     </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button (click)="logOut()" color="danger">
+        <ion-icon name="log-out-outline"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button (click)="settings()" color="primary">
+        <ion-icon name="person-circle-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
   </ion-fab>
 </ion-content>
