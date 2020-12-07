@@ -20,9 +20,10 @@
         <ion-label position="floating">Mot de passe</ion-label>
         <ion-input formControlName="mdp" type="password"></ion-input>
       </ion-item>
-      <ion-button type="submit" shape="round" [disabled]="!form.valid" class="ion-text-uppercase">
-        Connexion
-        <ion-icon name="send-outline" slot="end"></ion-icon>
+      <ion-button type="submit" shape="round" [disabled]="!form.valid || isLoading" class="ion-text-uppercase">
+        <ion-spinner *ngIf="isLoading"></ion-spinner>
+        <p *ngIf="!isLoading">Connexion</p>
+        <ion-icon name="send-outline" slot="end" *ngIf="!isLoading"></ion-icon>
       </ion-button>
       <small [routerLink]="['/subscribe']">Pas encore de compte ? Inscrivez-vous !</small>
     </form>

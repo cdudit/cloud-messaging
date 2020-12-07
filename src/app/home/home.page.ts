@@ -12,13 +12,14 @@ import { Storage } from '@ionic/storage';
 })
 export class HomePage implements OnInit {
   form: FormGroup;
+  isLoading = false;
 
   constructor(
     public fb: FormBuilder,
     public router: Router,
     public firebase: FirebaseService,
     public alertController: AlertController,
-    public storage: Storage
+    public storage: Storage,
   ) { }
 
   ngOnInit(): void {
@@ -34,14 +35,15 @@ export class HomePage implements OnInit {
   }
 
   async submit() {
+    this.isLoading = true;
     await this.firebase.checkAuth(this.form.value).then((val) => {
       if (val === 'auth/wrong-password') {
-        this.presentAlert('Le mot de passe est incorrect');
+        this.presentAlert('Le mot de passe est incorrect').then(() => this.isLoading = false);
       } else if (val === 'auth/user-not-found') {
-        this.presentAlert('Aucun compte trouvé pour l\'adresse mail.');
+        this.presentAlert('Aucun compte trouvé pour l\'adresse mail.').then(() => this.isLoading = false);
       } else {
         this.storage.set('user_id', val);
-        this.router.navigate(['contacts']);
+        this.router.navigate(['contacts']).then(() => this.isLoading = false);
       }
     });
   }
