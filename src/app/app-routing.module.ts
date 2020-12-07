@@ -2,24 +2,26 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { ContactCardComponent } from './contact-card/contact-card.component';
 import { MessageComponent } from './message/message.component';
+import { canActivate, redirectUnauthorizedTo, redirectLoggedInTo } from '@angular/fire/auth-guard';
+
+const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/']);
+
+const redirectLoggedInToContacts = () => redirectLoggedInTo(['/contacts']);
 
 const routes: Routes = [
   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
+    path: '',
+    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule),
+    ...canActivate(redirectLoggedInToContacts)
   },
   {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
+    path: 'contacts',
+    loadChildren: () => import('./contacts/contacts.module').then(m => m.ContactsPageModule),
+    ...canActivate(redirectUnauthorizedToLogin)
   },
   {
     path: 'subscribe',
     loadChildren: () => import('./subscribe/subscribe.module').then(m => m.SubscribePageModule)
-  },
-  {
-    path: 'contacts',
-    loadChildren: () => import('./contacts/contacts.module').then(m => m.ContactsPageModule)
   },
   {
     path: 'contact-card', component: ContactCardComponent

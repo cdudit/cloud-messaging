@@ -25,7 +25,7 @@ export class ContactsPage implements OnInit {
   logOut() {
     this.firebase.logOut();
     this.storage.clear().then(() => {
-      this.router.navigate(['home']);
+      this.router.navigateByUrl('/');
     });
   }
 

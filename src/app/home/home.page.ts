@@ -23,14 +23,9 @@ export class HomePage implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.storage.get('user_id').then(userId => {
-      if (userId) {
-        this.router.navigate(['contacts']);
-      }
-    });
     this.form = this.fb.group({
-      id: ['', Validators.compose([Validators.email, Validators.required])],
-      mdp: ['', Validators.compose([Validators.minLength(6), Validators.required])]
+      id: ['', [Validators.email, Validators.required]],
+      mdp: ['', [Validators.minLength(6), Validators.required]]
     });
   }
 
