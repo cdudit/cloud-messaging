@@ -27,7 +27,7 @@
 }
 
 img {
-  padding: 5%;
+  padding: 1%;
 }
 
 ion-button {
@@ -40,4 +40,8 @@ form {
   display: flex;
   flex-direction: column;
   width: 100%;
+}
+
+small:focus {
+  outline: none;
 }
