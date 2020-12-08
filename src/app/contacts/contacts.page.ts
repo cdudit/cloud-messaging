@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { FirebaseService } from '../firebase.service';
 import { Storage } from '@ionic/storage';
+import { ModalController } from '@ionic/angular';
+import { ProfilPage } from '../profil/profil.page';
 
 @Component({
   selector: 'app-contacts',
@@ -15,7 +17,8 @@ export class ContactsPage implements OnInit {
   constructor(
     public firebase: FirebaseService,
     public router: Router,
-    public storage: Storage
+    public storage: Storage,
+    public modalController: ModalController
   ) { }
 
   ngOnInit() {
@@ -43,8 +46,11 @@ export class ContactsPage implements OnInit {
   /**
    * Affichage des paramètres
    */
-  settings() {
-
+  async settings() {
+    const modal = await this.modalController.create({
+      component: ProfilPage
+    });
+    return await modal.present();
   }
 
 }

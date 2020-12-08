@@ -38,6 +38,10 @@ export class FirebaseService {
     return this.firestore.collection('users', ref => ref.where('email', '!=', notThisEmail)).valueChanges({ idField: 'userId' });
   }
 
+  async getCurrentUser(toFind) {
+    return this.firestore.collection('users').doc(toFind).ref.get();
+  }
+
   /**
    * Créer un utilisateur et l'ajoute à la base de données
    * @param user Utilisateur créé

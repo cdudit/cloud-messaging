@@ -32,6 +32,10 @@ const routes: Routes = [
   {
     path: 'discussion',
     loadChildren: () => import('./discussion/discussion.module').then(m => m.DiscussionPageModule)
+  },
+  {
+    path: 'profil',
+    loadChildren: () => import('./profil/profil.module').then( m => m.ProfilPageModule)
   }
 ];
 
