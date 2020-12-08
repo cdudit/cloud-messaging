@@ -19,16 +19,26 @@ export class ContactsPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    // Récupération des utilisateurs
     this.users = this.firebase.getUsers();
   }
 
+  /**
+   * Déconnexion de l'app
+   */
   logOut() {
+    // Déconnexion à partir de fireauth
     this.firebase.logOut();
+
+    // Suppression de l'id dans le storage et redirection
     this.storage.clear().then(() => {
       this.router.navigateByUrl('/');
     });
   }
 
+  /**
+   * Affichage des paramètres
+   */
   settings() {
 
   }

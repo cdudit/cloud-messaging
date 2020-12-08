@@ -27,13 +27,21 @@ export class FirebaseService {
     public fireAuth: AngularFireAuth,
     public toastController: ToastController
   ) {
+    // Récupération des utilisateurs de la base
     this.users = firestore.collection('users').valueChanges({ idField: 'userId' });
   }
 
+  /**
+   * Renvoie tous les utilisateurs
+   */
   getUsers() {
     return this.users;
   }
 
+  /**
+   * Créer un utilisateur et l'ajoute à la base de données
+   * @param user Utilisateur créé
+   */
   add(user) {
     this.fireAuth.createUserWithEmailAndPassword(user.email, user.mdp).then((addedUser) => {
       this.firestore.collection('users').doc(addedUser.user.uid).set({
@@ -49,10 +57,19 @@ export class FirebaseService {
     });
   }
 
-  getDiscuss(expediteur, recepteur) {
+  /**
+   * Récupération de la discussion entre deux utilisateurs
+   * @param utilisateur1 Identifiant du premier utilisateur
+   * @param utilisateur2 Identifiant du second
+   */
+  getDiscuss(utilisateur1, utilisateur2) {
     return this.firestore.collection('Messages').valueChanges({ idField: 'messageId' });
   }
 
+  /**
+   * Envoie d'un message
+   * @param msg Message envoyé
+   */
   sendMessage(msg) {
     return this.firestore.collection('Messages').add({
       expediteur_id: msg.expediteur_id,
@@ -62,6 +79,10 @@ export class FirebaseService {
     });
   }
 
+  /**
+   * Vérification de l'identité
+   * @param user Utilisateur à vérifier
+   */
   async checkAuth(user) {
     return await this.fireAuth.signInWithEmailAndPassword(user.id, user.mdp)
       .then((userCredential) => {
@@ -72,6 +93,9 @@ export class FirebaseService {
       });
   }
 
+  /**
+   * Déconnexion de l'app
+   */
   logOut() {
     this.fireAuth.signOut();
   }

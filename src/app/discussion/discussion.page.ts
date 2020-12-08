@@ -23,12 +23,14 @@ export class DiscussionPage implements OnInit {
     public firebase: FirebaseService,
     public storage: Storage
   ) {
+    // Création du formulaire
     this.form = this.fb.group({
       message: ['', Validators.required]
     });
   }
 
   ngOnInit() {
+    // Récupération de la discussion
     this.utilisateur = this.route.snapshot.paramMap.get('nom_utilisateur');
     this.recepteurId = this.route.snapshot.paramMap.get('userId');
     this.storage.get('user_id').then(val => {
@@ -37,7 +39,11 @@ export class DiscussionPage implements OnInit {
     this.messages = this.firebase.getDiscuss(this.expediteurId, this.recepteurId);
   }
 
+  /**
+   * Envoi d'un message
+   */
   submit() {
+    // Si la textarea contient un message
     if (this.form.value.message !== '') {
       this.firebase.sendMessage({
         expediteur_id: this.expediteurId,
@@ -46,6 +52,7 @@ export class DiscussionPage implements OnInit {
         message: this.form.value.message
       });
     }
+    // Rafraichissement de la page
     this.ngOnInit();
   }
 }

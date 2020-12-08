@@ -13,6 +13,7 @@ export class ContactCardComponent implements OnInit {
   constructor(public storage: Storage) { }
 
   ngOnInit() {
+    // Récupération de l'utilisateur actuel pour ne pas l'afficher
     this.storage.get('user_id').then(val => {
       if (this.user.userId === val) {
         this.itsMe = true;
