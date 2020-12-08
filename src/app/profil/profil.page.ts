@@ -20,7 +20,7 @@ export class ProfilPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    // Récupération identifiant utilisateur et document associé
+    // Récupération identifiant utilisateur et du document associé
     this.storage.get('user_id').then((id) => {
       this.firebase.getCurrentUser(id).then(doc => {
         if (doc.exists) {
@@ -29,18 +29,28 @@ export class ProfilPage implements OnInit {
           this.dateNaissance = ('0' + date.getDate()).slice(-2) + '/'
             + ('0' + (date.getMonth() + 1)).slice(-2) + '/'
             + date.getFullYear();
-          this.age = this.ageFromDateOfBirthday(this.user.naissance);
+          this.age = this.getAge(this.user.naissance);
         }
       });
     });
   }
 
-  public ageFromDateOfBirthday(dateOfBirth: any): number {
+  /**
+   * Retourne l'âge en fonction de la date de naissance
+   * @param dateOfBirth Date de naissance
+   */
+  getAge(naissance: any): number {
+    // Aujourd'hui
     const today = new Date();
-    const birthDate = new Date(dateOfBirth);
+
+    // Date de naissance
+    const birthDate = new Date(naissance);
+
+    // Différence des années
     let age = today.getFullYear() - birthDate.getFullYear();
     const m = today.getMonth() - birthDate.getMonth();
 
+    // Au cas ou la différence des mois, une année de différence
     if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
       age--;
     }
@@ -48,6 +58,9 @@ export class ProfilPage implements OnInit {
     return age;
   }
 
+  /**
+   * Retour à la page principale
+   */
   dismiss() {
     this.modalController.dismiss();
   }
