@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { FirebaseService } from '../firebase.service';
@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./discussion.page.scss'],
 })
 export class DiscussionPage implements OnInit {
+  @ViewChild('content') public content: any;
   utilisateur: string;
   form: FormGroup;
   recepteurId: string;
@@ -35,8 +36,14 @@ export class DiscussionPage implements OnInit {
     this.recepteurId = this.route.snapshot.paramMap.get('userId');
     this.storage.get('user_id').then(val => {
       this.expediteurId = val;
+      this.firebase.getDiscuss().then(value => {
+        this.messages = value;
+      });
     });
-    this.messages = this.firebase.getDiscuss(this.expediteurId, this.recepteurId);
+  }
+
+  scroll() {
+    this.content.scrollToBottom(0);
   }
 
   /**
@@ -50,9 +57,7 @@ export class DiscussionPage implements OnInit {
         recepteur_id: this.recepteurId,
         date_envoie: '',
         message: this.form.value.message
-      });
+      }).then(() => this.form.reset());
     }
-    // Rafraichissement de la page
-    this.ngOnInit();
   }
 }

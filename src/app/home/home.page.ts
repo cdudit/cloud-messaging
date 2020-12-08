@@ -46,6 +46,7 @@ export class HomePage implements OnInit {
       } else {
         // Si identité vérifiée, ajout de l'id dans le storage et redirection
         this.storage.set('user_id', val);
+        this.storage.set('user_email', this.form.value.id);
         this.router.navigate(['contacts']).then(() => this.isLoading = false);
       }
     });

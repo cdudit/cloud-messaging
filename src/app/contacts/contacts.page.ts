@@ -20,7 +20,11 @@ export class ContactsPage implements OnInit {
 
   ngOnInit() {
     // Récupération des utilisateurs
-    this.users = this.firebase.getUsers();
+    this.storage.get('user_email').then(val => {
+      this.firebase.getUsers(val).then(value => {
+        this.users = value;
+      });
+    });
   }
 
   /**

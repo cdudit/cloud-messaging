@@ -12,18 +12,20 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content #content>
   <div *ngIf="(messages| async)?.length > 0; else nothing">
-    <app-message *ngFor="let message of messages | async" [message]=message [recepteurId]=recepteurId></app-message>
+    <app-message *ngFor="let message of messages | async" [message]=message [discussWith]=recepteurId>
+    </app-message>
   </div>
   <ng-template #nothing>
     <img src="./../../assets/astronaut.svg" alt="nothing">
   </ng-template>
-  <ion-card>
-    <form [formGroup]="form">
-      <ion-textarea autoGrow="true" placeholder="Message" formControlName="message" class="padding" rows=1>
-      </ion-textarea>
-      <ion-icon (click)="submit()" color="primary" name="arrow-up-circle-outline"></ion-icon>
-    </form>
-  </ion-card>
 </ion-content>
+
+<ion-card>
+  <form [formGroup]="form">
+    <ion-textarea autoGrow="true" placeholder="Message" formControlName="message" class="padding" rows=1>
+    </ion-textarea>
+    <ion-icon (click)="submit()" color="primary" name="arrow-up-circle-outline"></ion-icon>
+  </form>
+</ion-card>

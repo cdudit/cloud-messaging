@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { ToastController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 
 export interface User {
   nom: string;
@@ -20,22 +21,21 @@ export interface User {
 })
 
 export class FirebaseService {
-  users: Observable<any[]>;
 
   constructor(
     public firestore: AngularFirestore,
     public fireAuth: AngularFireAuth,
-    public toastController: ToastController
+    public toastController: ToastController,
+    public storage: Storage
   ) {
-    // Récupération des utilisateurs de la base
-    this.users = firestore.collection('users').valueChanges({ idField: 'userId' });
   }
 
   /**
-   * Renvoie tous les utilisateurs
+   * Renvoie tous les utilisateurs sauf l'utilisateur courant
+   * @param notThisEmail email de l'utilisateur connecté
    */
-  getUsers() {
-    return this.users;
+  async getUsers(notThisEmail) {
+    return this.firestore.collection('users', ref => ref.where('email', '!=', notThisEmail)).valueChanges({ idField: 'userId' });
   }
 
   /**
@@ -62,8 +62,8 @@ export class FirebaseService {
    * @param utilisateur1 Identifiant du premier utilisateur
    * @param utilisateur2 Identifiant du second
    */
-  getDiscuss(utilisateur1, utilisateur2) {
-    return this.firestore.collection('Messages').valueChanges({ idField: 'messageId' });
+  async getDiscuss() {
+    return this.firestore.collection('Messages', ref => ref.orderBy('date_envoie')).valueChanges({ idField: 'messageId' });
   }
 
   /**
@@ -74,7 +74,7 @@ export class FirebaseService {
     return this.firestore.collection('Messages').add({
       expediteur_id: msg.expediteur_id,
       recepteur_id: msg.recepteur_id,
-      date_envoie: '',
+      date_envoie: new Date().toUTCString(),
       message: msg.message
     });
   }

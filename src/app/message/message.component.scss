@@ -3,10 +3,16 @@ ion-card {
     margin-bottom: 2%;
     padding-left: 10px;
     padding-right: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+small {
+    padding-bottom: 2%;
 }
 
 ion-card-content {
-    padding: 2%!important;
+    padding: 2% 0!important;
     color: white;
 }
 
