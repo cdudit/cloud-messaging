@@ -1,6 +1,7 @@
-<ion-card [routerLink]="['/discussion', user]" *ngIf="!itsMe">
-  <ion-card-header>
-    <ion-card-title>{{ user.prenom }} {{ user.nom }}</ion-card-title>
-    <ion-card-subtitle>{{ user.nom_utilisateur }}</ion-card-subtitle>
-  </ion-card-header>
-</ion-card>
+<ion-item [routerLink]="['/discussion', user]" *ngIf="!itsMe">
+  <ion-avatar slot="start">
+    <img src="./../../assets/blogging.svg">
+    <!-- <img src="{{ user.photo }}"> -->
+  </ion-avatar>
+  <ion-label>{{ user.prenom }} {{ user.nom }} {{ user.photo }}</ion-label>
+</ion-item>

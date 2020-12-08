@@ -3,6 +3,11 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="contacts" text="Contacts"></ion-back-button>
     </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-avatar>
+        <img src="./../../assets/blogging.svg">
+      </ion-avatar>
+    </ion-buttons>
     <ion-title>{{ utilisateur }}</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -16,8 +21,8 @@
   </ng-template>
   <ion-card>
     <form [formGroup]="form">
-      <ion-input placeholder="Message" type="text" formControlName="message" class="padding">
-      </ion-input>
+      <ion-textarea autoGrow="true" placeholder="Message" formControlName="message" class="padding" rows=1>
+      </ion-textarea>
       <ion-icon (click)="submit()" color="primary" name="arrow-up-circle-outline"></ion-icon>
     </form>
   </ion-card>

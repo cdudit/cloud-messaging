@@ -54,7 +54,7 @@ export class FirebaseService {
   }
 
   sendMessage(msg) {
-    this.firestore.collection('Messages').add({
+    return this.firestore.collection('Messages').add({
       expediteur_id: msg.expediteur_id,
       recepteur_id: msg.recepteur_id,
       date_envoie: '',

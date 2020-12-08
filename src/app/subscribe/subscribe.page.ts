@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FirebaseService } from '../firebase.service';
+import { File } from '@ionic-native/file/ngx';
 
 @Component({
   selector: 'app-subscribe',
@@ -10,6 +11,7 @@ import { FirebaseService } from '../firebase.service';
 })
 export class SubscribePage implements OnInit {
   form: FormGroup;
+  @ViewChild('fileButton', { static: false }) fileButton;
 
   constructor(
     public fb: FormBuilder,
@@ -30,6 +32,10 @@ export class SubscribePage implements OnInit {
       ville: ['', Validators.required],
       cp: ['', Validators.compose([Validators.pattern('[0-9]{5}'), Validators.required])]
     });
+  }
+
+  uploadFile() {
+    this.fileButton.nativeElement.click();
   }
 
   submit() {

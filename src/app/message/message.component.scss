@@ -1,6 +1,8 @@
 ion-card {
     min-width: 51%;
     margin-bottom: 2%;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 ion-card-content {
@@ -13,6 +15,7 @@ ion-card-content {
     ion-card-content {
         float: right;
     }
+    background-color: darkblue;
 }
 
 .left {

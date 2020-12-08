@@ -23,3 +23,12 @@ ion-icon {
 img {
     transform: translateY(40%);
 }
+
+ion-avatar {
+    height: 70px;
+    width: 70px;
+    img {
+        transform: translateY(0%);
+        margin: 0!important;
+    }
+}
