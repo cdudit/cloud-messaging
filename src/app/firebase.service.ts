@@ -38,8 +38,26 @@ export class FirebaseService {
     return this.firestore.collection('users', ref => ref.where('email', '!=', notThisEmail)).valueChanges({ idField: 'userId' });
   }
 
+  /**
+   * Récupération de l'utilisateur connecté
+   * @param toFind Identifiant de l'utilisateur en cours
+   */
   async getCurrentUser(toFind) {
     return this.firestore.collection('users').doc(toFind).ref.get();
+  }
+
+  /**
+   * Suppression du message
+   * @param id Identifiant du message à supprimer
+   */
+  deleteMessage(id) {
+    return this.firestore.collection('Messages').doc(id).ref.delete();
+  }
+
+  updateMessage(id, msg) {
+    return this.firestore.collection('Messages').doc(id).ref.update({
+      message: msg
+    });
   }
 
   /**
