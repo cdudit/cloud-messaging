@@ -16,6 +16,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { IonicStorageModule } from '@ionic/storage';
+import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyAtRRf3wXg9-PeB7tRHlBRoRffdI7H2qQs',
@@ -47,6 +48,7 @@ export const firebaseConfig = {
     StatusBar,
     SplashScreen,
     NativeStorage,
+    NativeGeocoder,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent],

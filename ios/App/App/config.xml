@@ -12,6 +12,10 @@
     <param name="onload" value="false"/>
   </feature>
 
+  <feature name="NativeGeocoder">
+    <param name="ios-package" value="NativeGeocoder"/>
+  </feature>
+
   <feature name="NativeStorage">
     <param name="ios-package" value="NativeStorage"/>
   </feature>
