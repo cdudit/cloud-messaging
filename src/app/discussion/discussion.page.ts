@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FirebaseService } from '../firebase.service';
 import { Storage } from '@ionic/storage';
 import { combineLatest } from 'rxjs';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Component({
   selector: 'app-discussion',
@@ -17,8 +18,10 @@ export class DiscussionPage implements OnInit {
   recepteurId: string;
   messages: any;
   expediteurId: string;
+  urlPhoto;
 
   constructor(
+    public afStorage: AngularFireStorage,
     public fb: FormBuilder,
     private route: ActivatedRoute,
     public firebase: FirebaseService,
@@ -50,6 +53,9 @@ export class DiscussionPage implements OnInit {
             return (aDate > bDate ? 1 : (aDate < bDate ? -1 : 0))
           })
         })
+      })
+      this.afStorage.ref('image_app/' + this.route.snapshot.paramMap.get('photo')).getDownloadURL().subscribe(val => {
+        this.urlPhoto = val
       })
     });
   }
