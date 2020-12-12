@@ -4,6 +4,7 @@ import { Storage } from '@ionic/storage';
 import { FirebaseService } from '../firebase.service';
 import { Map, tileLayer, marker } from 'leaflet';
 import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Component({
   selector: 'app-profil',
@@ -16,6 +17,7 @@ export class ProfilPage implements OnInit {
   age: any;
   map: Map;
   newMarker: any;
+  urlPhoto: any;
   address: string[];
   options: NativeGeocoderOptions = {
     useLocale: true,
@@ -27,7 +29,8 @@ export class ProfilPage implements OnInit {
     public modalController: ModalController,
     public firebase: FirebaseService,
     public storage: Storage,
-    public nativeGeocoder: NativeGeocoder
+    public nativeGeocoder: NativeGeocoder,
+    public afStorage: AngularFireStorage
   ) { }
 
   ngOnInit() {
@@ -53,6 +56,11 @@ export class ProfilPage implements OnInit {
               this.loadMap(result[0].latitude, result[0].longitude)
             })
             .catch((error: any) => console.log(error));
+
+          this.afStorage.ref('image_app/' + this.user.photo).getDownloadURL().subscribe(val => {
+            this.urlPhoto = val
+            console.log(val)
+          })
         }
       });
     });
