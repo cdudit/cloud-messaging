@@ -79,7 +79,8 @@ export class FirebaseService {
         naissance: user.naissance,
         adresse: user.adresse,
         ville: user.ville,
-        cp: user.cp
+        cp: user.cp,
+        photo: user.photo
       });
     });
   }

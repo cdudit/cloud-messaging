@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FirebaseService } from '../firebase.service';
-import { File } from '@ionic-native/file/ngx';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { Md5 } from 'ts-md5/dist/md5';
 
 @Component({
   selector: 'app-subscribe',
@@ -12,6 +12,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 })
 export class SubscribePage implements OnInit {
   form: FormGroup;
+  hashPhoto: any;
 
   constructor(
     public fb: FormBuilder,
@@ -32,7 +33,8 @@ export class SubscribePage implements OnInit {
       naissance: ['', Validators.required],
       adresse: ['', Validators.required],
       ville: ['', Validators.required],
-      cp: ['', [Validators.pattern('[0-9]{5}'), Validators.required]]
+      cp: ['', [Validators.pattern('[0-9]{5}'), Validators.required]],
+      photo: ['', Validators.required]
     });
   }
 
@@ -40,8 +42,9 @@ export class SubscribePage implements OnInit {
    * Ajout dans la base de données et redirection
    */
   submit() {
+    this.form.value.photo = this.hashPhoto
     this.firebaseService.add(this.form.value);
-    this.router.navigate(['home']);
+    this.router.navigateByUrl('/');
   }
 
   /**
@@ -49,8 +52,9 @@ export class SubscribePage implements OnInit {
    * @param event
    */
   uploadFile(event) {
+    this.hashPhoto = Md5.hashStr(this.form.value.photo);
     const file = event.target.files[0];
-    const filePath = 'gs://cloud-messaging-29ea2.appspot.com/image_app/' + this.form.value.email;
+    const filePath = 'gs://cloud-messaging-29ea2.appspot.com/image_app/' + this.hashPhoto;
     const ref = this.storage.refFromURL(filePath);
     const task = ref.put(file);
   }

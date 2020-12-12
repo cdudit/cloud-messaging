@@ -53,7 +53,7 @@
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Photo de profil</ion-label>
-        <ion-input type="file" (change)="uploadFile($event)"></ion-input>
+        <ion-input type="file" (change)="uploadFile($event)" formControlName="photo"></ion-input>
       </ion-item>
       <ion-button type="submit" shape="round" [disabled]="!form.valid" class="ion-text-uppercase">
         Créer
