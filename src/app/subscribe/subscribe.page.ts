@@ -44,6 +44,10 @@ export class SubscribePage implements OnInit {
     this.router.navigate(['home']);
   }
 
+  /**
+   * Insertion de l'image dans le storage de firebase
+   * @param event
+   */
   uploadFile(event) {
     const file = event.target.files[0];
     const filePath = 'gs://cloud-messaging-29ea2.appspot.com/image_app/' + this.form.value.email;
