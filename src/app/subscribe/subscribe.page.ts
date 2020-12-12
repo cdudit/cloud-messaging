@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FirebaseService } from '../firebase.service';
 import { File } from '@ionic-native/file/ngx';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Component({
   selector: 'app-subscribe',
@@ -15,7 +16,8 @@ export class SubscribePage implements OnInit {
   constructor(
     public fb: FormBuilder,
     public router: Router,
-    public firebaseService: FirebaseService
+    public firebaseService: FirebaseService,
+    private storage: AngularFireStorage
   ) { }
 
   ngOnInit() {
@@ -40,5 +42,12 @@ export class SubscribePage implements OnInit {
   submit() {
     this.firebaseService.add(this.form.value);
     this.router.navigate(['home']);
+  }
+
+  uploadFile(event) {
+    const file = event.target.files[0];
+    const filePath = 'gs://cloud-messaging-29ea2.appspot.com/image_app/' + this.form.value.email;
+    const ref = this.storage.refFromURL(filePath);
+    const task = ref.put(file);
   }
 }
