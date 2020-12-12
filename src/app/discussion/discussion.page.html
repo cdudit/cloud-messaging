@@ -13,8 +13,8 @@
 </ion-header>
 
 <ion-content #content>
-  <div *ngIf="(messages| async)?.length > 0; else nothing">
-    <app-message *ngFor="let message of messages | async" [message]=message [discussWith]=recepteurId>
+  <div *ngIf="(messages)?.length > 0; else nothing">
+    <app-message *ngFor="let message of messages" [message]=message [discussWith]=recepteurId>
     </app-message>
   </div>
   <ng-template #nothing>

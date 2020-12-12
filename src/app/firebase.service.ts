@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Observable, Subject, combineLatest } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
@@ -86,11 +86,17 @@ export class FirebaseService {
 
   /**
    * Récupération de la discussion entre deux utilisateurs
-   * @param utilisateur1 Identifiant du premier utilisateur
-   * @param utilisateur2 Identifiant du second
+   * @param id1 Identifiant du premier utilisateur
+   * @param id2 Identifiant du second
    */
-  async getDiscuss() {
-    return this.firestore.collection('Messages', ref => ref.orderBy('date_envoie')).valueChanges({ idField: 'messageId' });
+  async getDiscuss(id1, id2) {
+    const expediteur = this.firestore.collection('Messages', ref => ref
+      .where('expediteur_id', 'in', [id1, id2]))
+      .valueChanges({ idField: 'messageId' })
+    const recepteur = this.firestore.collection('Messages', ref => ref
+      .where('recepteur_id', 'in', [id1, id2]))
+      .valueChanges({ idField: 'messageId' })
+    return [expediteur, recepteur]
   }
 
   /**

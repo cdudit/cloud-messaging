@@ -12,8 +12,8 @@ export class MessageComponent implements OnInit {
   @Input() message: any;
   @Input() discussWith: any;
   isClicked = false;
-  isExpediteur = false;
-  isRecepteur = false;
+  isSender = false;
+  isReceiver = false;
   dateEnvoie: string;
 
   constructor(
@@ -25,10 +25,9 @@ export class MessageComponent implements OnInit {
   ngOnInit() {
     this.storage.get('user_id').then(currentUser => {
       if (this.message.expediteur_id === currentUser && this.message.recepteur_id === this.discussWith) {
-        this.isExpediteur = true;
-      }
-      if (this.message.expediteur_id === this.discussWith && this.message.recepteur_id === currentUser) {
-        this.isRecepteur = true;
+        this.isSender = true;
+      } else {
+        this.isReceiver = true;
       }
     });
 
@@ -57,7 +56,7 @@ export class MessageComponent implements OnInit {
       inputs: [
         {
           name: 'newMsg',
-          type: 'text',
+          type: 'textarea',
           id: 'newMsg',
           value: this.message.message,
         }
@@ -75,7 +74,6 @@ export class MessageComponent implements OnInit {
       ]
     });
     await alert.present();
-    console.log(this.message.messageId);
   }
 
   /**

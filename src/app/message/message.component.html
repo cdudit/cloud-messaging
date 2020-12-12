@@ -1,4 +1,4 @@
-<ion-card *ngIf="isExpediteur" class="right" (click)="click()">
+<ion-card *ngIf="isSender" class="right" (click)="click()">
   <ion-card-content>
     {{message.message}}
     <div *ngIf="isClicked">
@@ -8,7 +8,7 @@
   </ion-card-content>
   <small *ngIf="isClicked">{{dateEnvoie}}</small>
 </ion-card>
-<ion-card *ngIf="isRecepteur" class="left" (click)="click()">
+<ion-card *ngIf="isReceiver" class="left" (click)="click()">
   <ion-card-content>
     {{message.message}}
   </ion-card-content>
