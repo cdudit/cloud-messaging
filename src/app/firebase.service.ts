@@ -54,6 +54,11 @@ export class FirebaseService {
     return this.firestore.collection('Messages').doc(id).ref.delete();
   }
 
+  /**
+   * Mise à jour d'un message envoyé
+   * @param id  Identifiant du message
+   * @param msg Nouveau message
+   */
   updateMessage(id, msg) {
     return this.firestore.collection('Messages').doc(id).ref.update({
       message: msg

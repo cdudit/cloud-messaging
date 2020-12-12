@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
+import { FirebaseService } from '../firebase.service';
 
 @Component({
   selector: 'app-contact-card',
@@ -8,11 +9,14 @@ import { Storage } from '@ionic/storage';
 })
 export class ContactCardComponent implements OnInit {
   @Input() user: any;
+  lastMessage: any = '';
 
-  constructor(public storage: Storage) { }
+  constructor(
+    public storage: Storage,
+    public firebase: FirebaseService
+  ) { }
 
   ngOnInit() {
-
   }
 
 }

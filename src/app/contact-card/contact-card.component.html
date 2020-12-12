@@ -3,5 +3,12 @@
     <img src="./../../assets/blogging.svg">
     <!-- <img src="{{ user.photo }}"> -->
   </ion-avatar>
-  <ion-label>{{ user.prenom }} {{ user.nom }} {{ user.photo }}</ion-label>
+  <ion-label>
+    <div>
+      {{ user.prenom }} {{ user.nom }} {{ user.photo }}
+    </div>
+    <div>
+      {{ lastMessage }}
+    </div>
+  </ion-label>
 </ion-item>
