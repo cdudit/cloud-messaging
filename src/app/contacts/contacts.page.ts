@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { FirebaseService } from '../firebase.service';
 import { Storage } from '@ionic/storage';
 import { ModalController } from '@ionic/angular';

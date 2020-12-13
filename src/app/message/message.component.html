@@ -1,12 +1,14 @@
 <ion-card *ngIf="isSender" class="right" (click)="click()">
   <ion-card-content>
     {{message.message}}
+  </ion-card-content>
+  <small *ngIf="isClicked">
+    {{dateEnvoie}}
     <div *ngIf="isClicked">
       <ion-icon name="create-outline" (click)="update()"></ion-icon>
       <ion-icon name="trash-outline" (click)="delete()"></ion-icon>
     </div>
-  </ion-card-content>
-  <small *ngIf="isClicked">{{dateEnvoie}}</small>
+  </small>
 </ion-card>
 <ion-card *ngIf="isReceiver" class="left" (click)="click()">
   <ion-card-content>

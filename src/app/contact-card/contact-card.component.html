@@ -1,14 +1,13 @@
 <ion-item [routerLink]="['/discussion', user]">
   <ion-avatar slot="start">
     <img *ngIf="urlPhoto" src="{{ urlPhoto }}">
-    <!-- <img src="{{ user.photo }}"> -->
   </ion-avatar>
   <ion-label>
     <div>
       {{ user.prenom }} {{ user.nom }}
     </div>
-    <div>
-      {{ lastMessage }}
+    <div class="lastMessage">
+      {{ lastMessage.message }}
     </div>
   </ion-label>
 </ion-item>
