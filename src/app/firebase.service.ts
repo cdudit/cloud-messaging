@@ -91,13 +91,15 @@ export class FirebaseService {
    * @param id2 Identifiant du second
    */
   async getDiscuss(id1, id2) {
-    const expediteur = this.firestore.collection('Messages', ref => ref
-      .where('expediteur_id', 'in', [id1, id2]))
+    const fromID1toID2 = this.firestore.collection('Messages', ref => ref
+      .where('expediteur_id', '==', id1)
+      .where('recepteur_id', '==', id2))
       .valueChanges({ idField: 'messageId' })
-    const recepteur = this.firestore.collection('Messages', ref => ref
-      .where('recepteur_id', 'in', [id1, id2]))
+    const fromID2toID1 = this.firestore.collection('Messages', ref => ref
+      .where('expediteur_id', '==', id2)
+      .where('recepteur_id', '==', id1))
       .valueChanges({ idField: 'messageId' })
-    return [expediteur, recepteur]
+    return [fromID1toID2, fromID2toID1]
   }
 
   /**
