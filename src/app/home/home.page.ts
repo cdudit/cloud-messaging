@@ -45,8 +45,8 @@ export class HomePage implements OnInit {
         this.presentAlert('Aucun compte trouvé pour l\'adresse mail.').then(() => this.isLoading = false);
       } else {
         // Si identité vérifiée, ajout de l'id dans le storage et redirection
-        this.storage.set('user_id', val);
-        this.storage.set('user_email', this.form.value.id);
+        this.storage.set('userId', val);
+        this.storage.set('userEmail', this.form.value.id);
         this.router.navigate(['contacts']).then(() => this.isLoading = false);
       }
     });

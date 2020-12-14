@@ -12,13 +12,12 @@ import { AngularFireStorage } from '@angular/fire/storage';
   styleUrls: ['./discussion.page.scss'],
 })
 export class DiscussionPage implements OnInit {
-  @ViewChild('content') public content: any;
   utilisateur: string;
   form: FormGroup;
-  recepteurId: string;
+  receiverId: string;
   messages: any;
   expediteurId: string;
-  urlPhoto;
+  urlPhoto: String;
 
   constructor(
     public afStorage: AngularFireStorage,
@@ -36,12 +35,12 @@ export class DiscussionPage implements OnInit {
   ngOnInit() {
     // Récupération des deux utilisateurs
     this.utilisateur = this.route.snapshot.paramMap.get('nom_utilisateur');
-    this.recepteurId = this.route.snapshot.paramMap.get('userId');
-    this.storage.get('user_id').then(val => {
+    this.receiverId = this.route.snapshot.paramMap.get('userId');
+    this.storage.get('userId').then(val => {
       this.expediteurId = val;
 
       // Récupération de la discussion
-      this.firebase.getDiscuss(this.recepteurId, this.expediteurId).then(value => {
+      this.firebase.getDiscuss(this.receiverId, this.expediteurId).then(value => {
 
         // On combine les résultats
         combineLatest([value[0], value[1]]).subscribe(data => {
@@ -60,10 +59,6 @@ export class DiscussionPage implements OnInit {
     });
   }
 
-  scroll() {
-    this.content.scrollToBottom(0);
-  }
-
   /**
    * Envoi d'un message
    */
@@ -72,7 +67,7 @@ export class DiscussionPage implements OnInit {
     if (this.form.value.message !== '' && this.form.value.message !== null && this.form.value.message !== undefined) {
       this.firebase.sendMessage({
         expediteur_id: this.expediteurId,
-        recepteur_id: this.recepteurId,
+        recepteur_id: this.receiverId,
         date_envoie: '',
         message: this.form.value.message
       }).then(() => this.form.reset());

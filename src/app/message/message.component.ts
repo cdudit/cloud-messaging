@@ -23,7 +23,7 @@ export class MessageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.storage.get('user_id').then(currentUser => {
+    this.storage.get('userId').then(currentUser => {
       if (this.message.expediteur_id === currentUser && this.message.recepteur_id === this.discussWith) {
         this.isSender = true;
       } else {

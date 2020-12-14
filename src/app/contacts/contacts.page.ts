@@ -25,7 +25,7 @@ export class ContactsPage implements OnInit {
 
   ngOnInit() {
     // Récupération des utilisateurs
-    this.storage.get('user_email').then(val => {
+    this.storage.get('userEmail').then(val => {
       this.firebase.getUsers(val).then(value => {
         this.users = value;
       });

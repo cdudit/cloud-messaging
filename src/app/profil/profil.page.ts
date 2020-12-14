@@ -36,7 +36,7 @@ export class ProfilPage implements OnInit {
 
   ngOnInit() {
     // Récupération identifiant utilisateur et du document associé
-    this.storage.get('user_id').then((id) => {
+    this.storage.get('userId').then((id) => {
       this.firebase.getCurrentUser(id).then(doc => {
         if (doc.exists) {
           this.user = doc.data();

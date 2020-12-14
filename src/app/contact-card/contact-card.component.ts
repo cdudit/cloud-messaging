@@ -11,7 +11,7 @@ import { combineLatest, Observable } from 'rxjs';
 })
 export class ContactCardComponent implements OnInit {
   @Input() user: any;
-  lastMessage;
+  lastMessage: Object;
   urlPhoto;
 
   constructor(
@@ -24,7 +24,7 @@ export class ContactCardComponent implements OnInit {
     this.afStorage.ref('image_app/' + this.user.photo).getDownloadURL().subscribe(val => {
       this.urlPhoto = val
     })
-    this.storage.get('user_id').then(val => {
+    this.storage.get('userId').then(val => {
       this.firebase.getDiscuss(val, this.user.userId).then(value => {
 
         // On combine les résultats

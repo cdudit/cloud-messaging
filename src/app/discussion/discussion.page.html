@@ -14,7 +14,7 @@
 
 <ion-content #content>
   <div *ngIf="(messages)?.length > 0; else nothing">
-    <app-message *ngFor="let message of messages" [message]=message [discussWith]=recepteurId>
+    <app-message *ngFor="let message of messages" [message]=message [discussWith]=receiverId>
     </app-message>
   </div>
   <ng-template #nothing>
