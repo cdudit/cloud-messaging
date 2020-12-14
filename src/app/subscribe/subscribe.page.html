@@ -55,6 +55,10 @@
         <ion-label position="stacked">Photo de profil</ion-label>
         <ion-input type="file" (change)="uploadFile($event)" formControlName="photo"></ion-input>
       </ion-item>
+      <div *ngIf="pcent | async as pct">
+        Importation: {{ pct | number }}%
+        <ion-progress-bar value="{{ pct / 100 }}"></ion-progress-bar>
+      </div>
       <ion-button type="submit" shape="round" [disabled]="!form.valid" class="ion-text-uppercase">
         Créer
       </ion-button>

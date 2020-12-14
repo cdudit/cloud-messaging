@@ -5,6 +5,7 @@ import { FirebaseService } from '../firebase.service';
 import { Storage } from '@ionic/storage';
 import { ModalController } from '@ionic/angular';
 import { ProfilPage } from '../profil/profil.page';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 @Component({
   selector: 'app-contacts',
@@ -18,7 +19,8 @@ export class ContactsPage implements OnInit {
     public firebase: FirebaseService,
     public router: Router,
     public storage: Storage,
-    public modalController: ModalController
+    public modalController: ModalController,
+    public geolocation: Geolocation
   ) { }
 
   ngOnInit() {
@@ -27,6 +29,14 @@ export class ContactsPage implements OnInit {
       this.firebase.getUsers(val).then(value => {
         this.users = value;
       });
+    });
+
+    // Récupération de la position de l'utilisateur
+    this.geolocation.getCurrentPosition().then((resp) => {
+      this.storage.set('lastLocation', resp.coords)
+      console.log(resp);
+    }).catch((error) => {
+      console.log('Error getting location', error);
     });
   }
 

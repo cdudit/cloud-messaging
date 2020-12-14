@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { FirebaseService } from '../firebase.service';
-import { Map, tileLayer, marker } from 'leaflet';
+import { Map, tileLayer, marker, LatLngExpression, LatLng } from 'leaflet';
 import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
 import { AngularFireStorage } from '@angular/fire/storage';
 
@@ -17,6 +17,7 @@ export class ProfilPage implements OnInit {
   age: any;
   map: Map;
   newMarker: any;
+  markerLastPos: any;
   urlPhoto: any;
   address: string[];
   options: NativeGeocoderOptions = {
@@ -74,20 +75,29 @@ export class ProfilPage implements OnInit {
   loadMap(lat, lng) {
     // Création de la map
     this.map = new Map("map").setView([lat, lng], 13);
-    tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-      {
-        attribution: 'Map data © <a href="https://www.openstreetmap.org/"> OpenStreetMap </a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/" > CC - BY - SA </a>'
-      })
-      .addTo(this.map);
+    tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: 'Map data © <a href="https://www.openstreetmap.org/"> OpenStreetMap </a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/" > CC - BY - SA </a>'
+    }).addTo(this.map);
 
     // Création du marker
     this.newMarker = marker([lat, lng], {
-      draggable:
-        true
+      draggable: true
     }).addTo(this.map);
 
+    // Récupération de la dernière localisation
+    this.storage.get('lastLocation').then((val: any) => {
+      if (val) {
+        this.markerLastPos = marker([val.latitude, val.longitude], {
+          draggable: true
+        }).addTo(this.map)
+
+        // Affichage du marker
+        this.markerLastPos.bindPopup('Dernière position').openPopup()
+      }
+    })
+
     // Affichage du marker
-    this.newMarker.bindPopup(this.user.adresse).openPopup();
+    this.newMarker.bindPopup('Domicile: ' + this.user.adresse).openPopup();
   }
 
   /**

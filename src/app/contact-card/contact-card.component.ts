@@ -11,7 +11,7 @@ import { combineLatest, Observable } from 'rxjs';
 })
 export class ContactCardComponent implements OnInit {
   @Input() user: any;
-  lastMessage: any = '';
+  lastMessage;
   urlPhoto;
 
   constructor(

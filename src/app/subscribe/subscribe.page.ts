@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FirebaseService } from '../firebase.service';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Md5 } from 'ts-md5/dist/md5';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-subscribe',
@@ -13,6 +14,7 @@ import { Md5 } from 'ts-md5/dist/md5';
 export class SubscribePage implements OnInit {
   form: FormGroup;
   hashPhoto: any;
+  pcent: Observable<number>;
 
   constructor(
     public fb: FormBuilder,
@@ -57,5 +59,6 @@ export class SubscribePage implements OnInit {
     const filePath = 'gs://cloud-messaging-29ea2.appspot.com/image_app/' + this.hashPhoto;
     const ref = this.storage.refFromURL(filePath);
     const task = ref.put(file);
+    this.pcent = task.percentageChanges()
   }
 }
