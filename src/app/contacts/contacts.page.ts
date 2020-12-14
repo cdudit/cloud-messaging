@@ -58,7 +58,8 @@ export class ContactsPage implements OnInit {
    */
   async settings() {
     const modal = await this.modalController.create({
-      component: ProfilPage
+      component: ProfilPage,
+      swipeToClose: true
     });
     return await modal.present();
   }

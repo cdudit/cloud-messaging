@@ -5,6 +5,7 @@ import { FirebaseService } from '../firebase.service';
 import { Storage } from '@ionic/storage';
 import { combineLatest } from 'rxjs';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-discussion',
@@ -24,7 +25,8 @@ export class DiscussionPage implements OnInit {
     public fb: FormBuilder,
     private route: ActivatedRoute,
     public firebase: FirebaseService,
-    public storage: Storage
+    public storage: Storage,
+    public alert: AlertController
   ) {
     // Création du formulaire
     this.form = this.fb.group({
@@ -57,6 +59,22 @@ export class DiscussionPage implements OnInit {
         this.urlPhoto = val
       })
     });
+  }
+
+  /**
+   * Affiche la photo dans une popup
+   */
+  async displayPhoto() {
+    const alert = await this.alert.create({
+      message: `<img src="${this.urlPhoto}" alt="photo-profil">`,
+      buttons: [
+        {
+          text: 'OK',
+          role: 'cancel',
+        }
+      ],
+    });
+    await alert.present();
   }
 
   /**
