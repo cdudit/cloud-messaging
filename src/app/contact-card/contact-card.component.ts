@@ -20,7 +20,7 @@ export class ContactCardComponent implements OnInit {
     public firebase: FirebaseService
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.afStorage.ref('image_app/' + this.user.photo).getDownloadURL().subscribe(val => {
       this.urlPhoto = val
     })
@@ -40,5 +40,4 @@ export class ContactCardComponent implements OnInit {
       })
     })
   }
-
 }

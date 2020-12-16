@@ -23,7 +23,7 @@ export class ContactsPage implements OnInit {
     public geolocation: Geolocation
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     // Récupération des utilisateurs
     this.storage.get('userEmail').then(val => {
       this.firebase.getUsers(val).then(value => {
@@ -43,7 +43,7 @@ export class ContactsPage implements OnInit {
   /**
    * Déconnexion de l'app
    */
-  logOut() {
+  logOut(): void {
     // Déconnexion à partir de fireauth
     this.firebase.logOut();
 
@@ -56,7 +56,7 @@ export class ContactsPage implements OnInit {
   /**
    * Affichage des paramètres
    */
-  async settings() {
+  async settings(): Promise<void> {
     const modal = await this.modalController.create({
       component: ProfilPage,
       swipeToClose: true

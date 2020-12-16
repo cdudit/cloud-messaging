@@ -33,30 +33,32 @@ export class HomePage implements OnInit {
   /**
    * Tentative de connexion à l'app
    */
-  async submit() {
+  async submit(): Promise<void> {
     // Affichage du loader
     this.isLoading = true;
 
     // Vérification de l'identité et gestion des erreurs
-    await this.firebase.checkAuth(this.form.value).then((val) => {
-      if (val === 'auth/wrong-password') {
-        this.presentAlert('Le mot de passe est incorrect').then(() => this.isLoading = false);
-      } else if (val === 'auth/user-not-found') {
-        this.presentAlert('Aucun compte trouvé pour l\'adresse mail.').then(() => this.isLoading = false);
-      } else {
+    await this.firebase.checkAuth(this.form.value)
+      .then((userCredential) => {
         // Si identité vérifiée, ajout de l'id dans le storage et redirection
-        this.storage.set('userId', val);
-        this.storage.set('userEmail', this.form.value.id);
+        this.storage.set('userId', userCredential.user.uid);
+        this.storage.set('userEmail', userCredential.user.email);
         this.router.navigate(['contacts']).then(() => this.isLoading = false);
-      }
-    });
+      })
+      .catch((error) => {
+        if (error.code === 'auth/wrong-password') {
+          this.presentAlert('Le mot de passe est incorrect').then(() => this.isLoading = false);
+        } else if (error.code === 'auth/user-not-found') {
+          this.presentAlert('Aucun compte trouvé pour l\'adresse mail.').then(() => this.isLoading = false);
+        }
+      })
   }
 
   /**
    * Affichage d'un message d'erreur
    * @param msg Message d'erreur
    */
-  async presentAlert(msg: string) {
+  async presentAlert(msg: string): Promise<void> {
     const alert = await this.alertController.create({
       header: 'Erreur',
       message: msg,

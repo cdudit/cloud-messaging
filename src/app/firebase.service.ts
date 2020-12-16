@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
 import { Observable, Subject, combineLatest } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { ToastController } from '@ionic/angular';
@@ -50,7 +50,7 @@ export class FirebaseService {
    * Suppression du message
    * @param id Identifiant du message à supprimer
    */
-  deleteMessage(id) {
+  deleteMessage(id): Promise<void> {
     return this.firestore.collection('Messages').doc(id).ref.delete();
   }
 
@@ -59,7 +59,7 @@ export class FirebaseService {
    * @param id  Identifiant du message
    * @param msg Nouveau message
    */
-  updateMessage(id, msg) {
+  updateMessage(id, msg): Promise<void> {
     return this.firestore.collection('Messages').doc(id).ref.update({
       message: msg
     });
@@ -69,7 +69,7 @@ export class FirebaseService {
    * Créer un utilisateur et l'ajoute à la base de données
    * @param user Utilisateur créé
    */
-  add(user) {
+  add(user): void {
     this.fireAuth.createUserWithEmailAndPassword(user.email, user.mdp).then((addedUser) => {
       this.firestore.collection('users').doc(addedUser.user.uid).set({
         nom: user.nom,
@@ -106,7 +106,7 @@ export class FirebaseService {
    * Envoie d'un message
    * @param msg Message envoyé
    */
-  sendMessage(msg) {
+  sendMessage(msg): Promise<DocumentReference<unknown>> {
     return this.firestore.collection('Messages').add({
       expediteur_id: msg.expediteur_id,
       recepteur_id: msg.recepteur_id,
@@ -119,20 +119,14 @@ export class FirebaseService {
    * Vérification de l'identité
    * @param user Utilisateur à vérifier
    */
-  async checkAuth(user) {
+  async checkAuth(user): Promise<firebase.default.auth.UserCredential> {
     return await this.fireAuth.signInWithEmailAndPassword(user.id, user.mdp)
-      .then((userCredential) => {
-        return userCredential.user.uid;
-      })
-      .catch((error) => {
-        return error.code;
-      });
   }
 
   /**
    * Déconnexion de l'app
    */
-  logOut() {
+  logOut(): void {
     this.fireAuth.signOut();
   }
 }

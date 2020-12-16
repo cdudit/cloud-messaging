@@ -22,7 +22,7 @@ export class MessageComponent implements OnInit {
     public alertController: AlertController
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.storage.get('userId').then(currentUser => {
       if (this.message.expediteur_id === currentUser && this.message.recepteur_id === this.discussWith) {
         this.isSender = true;
@@ -43,14 +43,14 @@ export class MessageComponent implements OnInit {
   /**
    * Click sur le message pour afficher la date et le menu
    */
-  click() {
+  click(): void {
     this.isClicked = !this.isClicked;
   }
 
   /**
    * Mise à jour du message avec un nouveau texte
    */
-  async update() {
+  async update(): Promise<void> {
     const alert = await this.alertController.create({
       header: 'Modification du message',
       inputs: [
@@ -79,7 +79,7 @@ export class MessageComponent implements OnInit {
   /**
    * Suppression du message
    */
-  async delete() {
+  async delete(): Promise<void> {
     const alert = await this.alertController.create({
       header: 'Attention',
       message: 'Êtes-vous sûr de vouloir supprimer ce message ?',

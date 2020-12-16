@@ -25,7 +25,6 @@ export class ProfilPage implements OnInit {
     maxResults: 5
   };
 
-
   constructor(
     public modalController: ModalController,
     public firebase: FirebaseService,
@@ -34,7 +33,7 @@ export class ProfilPage implements OnInit {
     public afStorage: AngularFireStorage
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     // Récupération identifiant utilisateur et du document associé
     this.storage.get('userId').then((id) => {
       this.firebase.getCurrentUser(id).then(doc => {
@@ -60,7 +59,6 @@ export class ProfilPage implements OnInit {
 
           this.afStorage.ref('image_app/' + this.user.photo).getDownloadURL().subscribe(val => {
             this.urlPhoto = val
-            console.log(val)
           })
         }
       });
@@ -72,7 +70,7 @@ export class ProfilPage implements OnInit {
    * @param lat Latitude
    * @param lng Longitude
    */
-  loadMap(lat, lng) {
+  loadMap(lat, lng): void {
     // Création de la map
     this.map = new Map("map").setView([lat, lng], 13);
     tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -126,7 +124,7 @@ export class ProfilPage implements OnInit {
   /**
    * Retour à la page principale
    */
-  dismiss() {
+  dismiss(): void {
     this.modalController.dismiss();
   }
 

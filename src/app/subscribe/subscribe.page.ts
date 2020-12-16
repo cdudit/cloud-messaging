@@ -23,7 +23,7 @@ export class SubscribePage implements OnInit {
     private storage: AngularFireStorage
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     // Création du formulaire
     this.form = this.fb.group({
       nom: ['', Validators.required],
@@ -43,7 +43,7 @@ export class SubscribePage implements OnInit {
   /**
    * Ajout dans la base de données et redirection
    */
-  submit() {
+  submit(): void {
     this.form.value.photo = this.hashPhoto
     this.firebaseService.add(this.form.value);
     this.router.navigateByUrl('/');
@@ -53,7 +53,7 @@ export class SubscribePage implements OnInit {
    * Insertion de l'image dans le storage de firebase
    * @param event
    */
-  uploadFile(event) {
+  uploadFile(event): void {
     this.hashPhoto = Md5.hashStr(this.form.value.photo);
     const file = event.target.files[0];
     const filePath = 'gs://cloud-messaging-29ea2.appspot.com/image_app/' + this.hashPhoto;

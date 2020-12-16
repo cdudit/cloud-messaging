@@ -34,7 +34,7 @@ export class DiscussionPage implements OnInit {
     });
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     // Récupération des deux utilisateurs
     this.utilisateur = this.route.snapshot.paramMap.get('nom_utilisateur');
     this.receiverId = this.route.snapshot.paramMap.get('userId');
@@ -64,7 +64,7 @@ export class DiscussionPage implements OnInit {
   /**
    * Affiche la photo dans une popup
    */
-  async displayPhoto() {
+  async displayPhoto(): Promise<void> {
     const alert = await this.alert.create({
       message: `<img src="${this.urlPhoto}" alt="photo-profil">`,
       buttons: [
@@ -80,7 +80,7 @@ export class DiscussionPage implements OnInit {
   /**
    * Envoi d'un message
    */
-  submit() {
+  submit(): void {
     // Si la textarea contient un message
     if (this.form.value.message !== '' && this.form.value.message !== null && this.form.value.message !== undefined) {
       this.firebase.sendMessage({

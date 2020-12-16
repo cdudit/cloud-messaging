@@ -6,7 +6,7 @@
     <div>
       {{ user.prenom }} {{ user.nom }}
     </div>
-    <div class="lastMessage">
+    <div *ngIf="lastMessage" class="lastMessage">
       {{ lastMessage.message }}
     </div>
   </ion-label>
