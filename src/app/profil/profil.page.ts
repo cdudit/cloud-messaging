@@ -54,7 +54,7 @@ export class ProfilPage implements OnInit {
           this.nativeGeocoder.forwardGeocode(this.user.adresse + ' ' + this.user.ville, this.options)
             .then((result: NativeGeocoderResult[]) => {
               console.log('The coordinates are latitude=' + result[0].latitude + ' and longitude=' + result[0].longitude);
-              this.loadMap(parseInt(result[0].latitude, 10), parseInt(result[0].longitude, 10));
+              this.loadMap(parseFloat(result[0].latitude), parseFloat(result[0].longitude));
             })
             .catch((error: any) => console.log(error));
 
