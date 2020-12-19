@@ -23,7 +23,8 @@ export class MessageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.storage.get('userId').then(currentUser => {
+    // Récupération de l'utilisateur et vérification de qui envoie et qui reçois
+    this.storage.get('userId').then((currentUser: string) => {
       if (this.message.expediteur_id === currentUser && this.message.recepteur_id === this.discussWith) {
         this.isSender = true;
       } else {
@@ -53,25 +54,21 @@ export class MessageComponent implements OnInit {
   async update(): Promise<void> {
     const alert = await this.alertController.create({
       header: 'Modification du message',
-      inputs: [
-        {
-          name: 'newMsg',
-          type: 'textarea',
-          id: 'newMsg',
-          value: this.message.message,
+      inputs: [{
+        name: 'newMsg',
+        type: 'textarea',
+        id: 'newMsg',
+        value: this.message.message,
+      }],
+      buttons: [{
+        text: 'Annuler',
+        role: 'cancel'
+      }, {
+        text: 'Confirmer',
+        handler: (data) => {
+          this.firebase.updateMessage(this.message.messageId, data.newMsg);
         }
-      ],
-      buttons: [
-        {
-          text: 'Annuler',
-          role: 'cancel'
-        }, {
-          text: 'Confirmer',
-          handler: (data) => {
-            this.firebase.updateMessage(this.message.messageId, data.newMsg);
-          }
-        }
-      ]
+      }]
     });
     await alert.present();
   }
@@ -83,19 +80,16 @@ export class MessageComponent implements OnInit {
     const alert = await this.alertController.create({
       header: 'Attention',
       message: 'Êtes-vous sûr de vouloir supprimer ce message ?',
-      buttons: [
-        {
-          text: 'Annuler',
-          role: 'cancel'
-        }, {
-          text: 'Confirmer',
-          handler: () => {
-            this.firebase.deleteMessage(this.message.messageId);
-          }
+      buttons: [{
+        text: 'Annuler',
+        role: 'cancel'
+      }, {
+        text: 'Confirmer',
+        handler: () => {
+          this.firebase.deleteMessage(this.message.messageId);
         }
-      ]
+      }]
     });
     await alert.present();
   }
-
 }

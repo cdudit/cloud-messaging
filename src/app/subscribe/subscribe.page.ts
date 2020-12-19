@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
 })
 export class SubscribePage implements OnInit {
   form: FormGroup;
-  hashPhoto: any;
+  hashPhoto: string | Int32Array;
   pcent: Observable<number>;
 
   constructor(
@@ -44,21 +44,29 @@ export class SubscribePage implements OnInit {
    * Ajout dans la base de données et redirection
    */
   submit(): void {
-    this.form.value.photo = this.hashPhoto
+    this.form.value.photo = this.hashPhoto;
     this.firebaseService.add(this.form.value);
     this.router.navigateByUrl('/');
   }
 
   /**
    * Insertion de l'image dans le storage de firebase
-   * @param event
+   * @param event Evenement upload
    */
-  uploadFile(event): void {
+  uploadFile(event: any): void {
+    // Hash de nom de la photo
     this.hashPhoto = Md5.hashStr(this.form.value.photo);
+
+    // Récupération du fichier
     const file = event.target.files[0];
+
+    // Chemin d'accès au storage de firebase
     const filePath = 'gs://cloud-messaging-29ea2.appspot.com/image_app/' + this.hashPhoto;
+
+    // Référence du chemin d'accès et upload
     const ref = this.storage.refFromURL(filePath);
     const task = ref.put(file);
-    this.pcent = task.percentageChanges()
+
+    this.pcent = task.percentageChanges();
   }
 }

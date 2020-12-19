@@ -18,7 +18,7 @@ export class DiscussionPage implements OnInit {
   receiverId: string;
   messages: any;
   expediteurId: string;
-  urlPhoto: String;
+  urlPhoto: string;
 
   constructor(
     public afStorage: AngularFireStorage,
@@ -49,15 +49,15 @@ export class DiscussionPage implements OnInit {
 
           // On ordonne par date d'envoie
           this.messages = data[0].concat(data[1]).sort((a: any, b: any) => {
-            const aDate = new Date(Date.parse(a.date_envoie))
-            const bDate = new Date(Date.parse(b.date_envoie))
-            return (aDate > bDate ? 1 : (aDate < bDate ? -1 : 0))
-          })
-        })
-      })
+            const aDate = new Date(Date.parse(a.date_envoie));
+            const bDate = new Date(Date.parse(b.date_envoie));
+            return (aDate > bDate ? 1 : (aDate < bDate ? -1 : 0));
+          });
+        });
+      });
       this.afStorage.ref('image_app/' + this.route.snapshot.paramMap.get('photo')).getDownloadURL().subscribe(val => {
-        this.urlPhoto = val
-      })
+        this.urlPhoto = val;
+      });
     });
   }
 
@@ -67,12 +67,10 @@ export class DiscussionPage implements OnInit {
   async displayPhoto(): Promise<void> {
     const alert = await this.alert.create({
       message: `<img src="${this.urlPhoto}" alt="photo-profil">`,
-      buttons: [
-        {
-          text: 'OK',
-          role: 'cancel',
-        }
-      ],
+      buttons: [{
+        text: 'OK',
+        role: 'cancel',
+      }],
     });
     await alert.present();
   }

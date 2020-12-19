@@ -11,8 +11,8 @@ import { combineLatest, Observable } from 'rxjs';
 })
 export class ContactCardComponent implements OnInit {
   @Input() user: any;
-  lastMessage: Object;
-  urlPhoto;
+  lastMessage: object;
+  urlPhoto: string;
 
   constructor(
     public afStorage: AngularFireStorage,
@@ -22,9 +22,10 @@ export class ContactCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.afStorage.ref('image_app/' + this.user.photo).getDownloadURL().subscribe(val => {
-      this.urlPhoto = val
-    })
-    this.storage.get('userId').then(val => {
+      this.urlPhoto = val;
+    });
+    this.storage.get('userId').then((val: string) => {
+      // Récupération des messages entre deux utilisateurs
       this.firebase.getDiscuss(val, this.user.userId).then(value => {
 
         // On combine les résultats
@@ -32,12 +33,12 @@ export class ContactCardComponent implements OnInit {
 
           // On récupère le dernier
           this.lastMessage = data[0].concat(data[1]).sort((a: any, b: any) => {
-            const aDate = new Date(Date.parse(a.date_envoie))
-            const bDate = new Date(Date.parse(b.date_envoie))
-            return (aDate < bDate ? 1 : (aDate > bDate ? -1 : 0))
-          })[0]
-        })
-      })
-    })
+            const aDate = new Date(Date.parse(a.date_envoie));
+            const bDate = new Date(Date.parse(b.date_envoie));
+            return (aDate < bDate ? 1 : (aDate > bDate ? -1 : 0));
+          })[0];
+        });
+      });
+    });
   }
 }

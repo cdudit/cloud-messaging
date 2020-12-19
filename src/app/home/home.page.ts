@@ -39,19 +39,20 @@ export class HomePage implements OnInit {
 
     // Vérification de l'identité et gestion des erreurs
     await this.firebase.checkAuth(this.form.value)
-      .then((userCredential) => {
+      .then((userCredential: firebase.default.auth.UserCredential) => {
         // Si identité vérifiée, ajout de l'id dans le storage et redirection
         this.storage.set('userId', userCredential.user.uid);
         this.storage.set('userEmail', userCredential.user.email);
         this.router.navigate(['contacts']).then(() => this.isLoading = false);
       })
       .catch((error) => {
+        // En cas d'erreur, affichage d'un message
         if (error.code === 'auth/wrong-password') {
           this.presentAlert('Le mot de passe est incorrect').then(() => this.isLoading = false);
         } else if (error.code === 'auth/user-not-found') {
           this.presentAlert('Aucun compte trouvé pour l\'adresse mail.').then(() => this.isLoading = false);
         }
-      })
+      });
   }
 
   /**

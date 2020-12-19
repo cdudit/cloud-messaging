@@ -1,20 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
-import { Observable, Subject, combineLatest } from 'rxjs';
+import { Observable } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
-
-export interface User {
-  nom: string;
-  prenom: string;
-  nom_utilisateur: string;
-  email: string;
-  adresse: string;
-  ville: string;
-  cp: string;
-  naissance: string;
-}
 
 @Injectable({
   providedIn: 'root'
@@ -27,22 +16,21 @@ export class FirebaseService {
     public fireAuth: AngularFireAuth,
     public toastController: ToastController,
     public storage: Storage
-  ) {
-  }
+  ) { }
 
   /**
    * Renvoie tous les utilisateurs sauf l'utilisateur courant
-   * @param notThisEmail email de l'utilisateur connecté
+   * @param myEmail email de l'utilisateur connecté
    */
-  async getUsers(notThisEmail) {
-    return this.firestore.collection('users', ref => ref.where('email', '!=', notThisEmail)).valueChanges({ idField: 'userId' });
+  async getUsers(myEmail: string): Promise<Observable<{ userId: string; }[]>> {
+    return this.firestore.collection('users', ref => ref.where('email', '!=', myEmail)).valueChanges({ idField: 'userId' });
   }
 
   /**
    * Récupération de l'utilisateur connecté
    * @param toFind Identifiant de l'utilisateur en cours
    */
-  async getCurrentUser(toFind) {
+  async getCurrentUser(toFind: string): Promise<firebase.default.firestore.DocumentSnapshot<unknown>> {
     return this.firestore.collection('users').doc(toFind).ref.get();
   }
 
@@ -50,7 +38,7 @@ export class FirebaseService {
    * Suppression du message
    * @param id Identifiant du message à supprimer
    */
-  deleteMessage(id): Promise<void> {
+  deleteMessage(id: string): Promise<void> {
     return this.firestore.collection('Messages').doc(id).ref.delete();
   }
 
@@ -59,7 +47,7 @@ export class FirebaseService {
    * @param id  Identifiant du message
    * @param msg Nouveau message
    */
-  updateMessage(id, msg): Promise<void> {
+  updateMessage(id: string, msg: string): Promise<void> {
     return this.firestore.collection('Messages').doc(id).ref.update({
       message: msg
     });
@@ -90,16 +78,16 @@ export class FirebaseService {
    * @param id1 Identifiant du premier utilisateur
    * @param id2 Identifiant du second
    */
-  async getDiscuss(id1, id2) {
+  async getDiscuss(id1: string, id2: string) {
     const fromID1toID2 = this.firestore.collection('Messages', ref => ref
       .where('expediteur_id', '==', id1)
       .where('recepteur_id', '==', id2))
-      .valueChanges({ idField: 'messageId' })
+      .valueChanges({ idField: 'messageId' });
     const fromID2toID1 = this.firestore.collection('Messages', ref => ref
       .where('expediteur_id', '==', id2)
       .where('recepteur_id', '==', id1))
-      .valueChanges({ idField: 'messageId' })
-    return [fromID1toID2, fromID2toID1]
+      .valueChanges({ idField: 'messageId' });
+    return [fromID1toID2, fromID2toID1];
   }
 
   /**
@@ -120,7 +108,7 @@ export class FirebaseService {
    * @param user Utilisateur à vérifier
    */
   async checkAuth(user): Promise<firebase.default.auth.UserCredential> {
-    return await this.fireAuth.signInWithEmailAndPassword(user.id, user.mdp)
+    return await this.fireAuth.signInWithEmailAndPassword(user.id, user.mdp);
   }
 
   /**
